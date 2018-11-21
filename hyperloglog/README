@@ -1,0 +1,30 @@
+# Test HyperLogLog 
+
+This is a small script to test HyperLogLog with Redis
+
+It creates many random strings and adds them to Redis. It adds them in two places, 
+one set, and a HyperLogLog. At the end it prints the cardinality of the set (real one) 
+and the estimate. And the error of the estimate.
+
+## Running it
+
+To run it you need to have a Redis. The script uses the localhost (modify it if not) and default port.
+You can easily get one with Docker:
+
+```
+docker run -p 6379:6379 redis
+```
+
+And then just `go run populate.go`  (having Go installed of course!)
+As it is not using vendoring or modules you might need to do first a `go get github.com/go-redis/redis` 
+
+That't it!
+
+If you want to connect to Redis directly you can do it easily also with Docker (use that if you run Redis locally).
+
+```
+docker run -it goodsmileduck/redis-cli redis-cli  -h host.docker.internal
+```
+
+And once you are inside Redis you can either check the set with a `SMEMBERS commit` command. Or check the 
+HyperLogLog estimate with `PFCOUNT commitHLL`
